@@ -1,29 +1,29 @@
 #include<stdio.h>
-#include<netdb.h> 
+#include<netdb.h>
 #include<sys/socket.h>
 #include<arpa/inet.h>   //inet_addr
 #include<string.h>
 #include<unistd.h>
 #define MAX 80
-void func(int socket_desc) 
-{ 
-    char buff[MAX]; 
-    int n; 
-    for (;;) { 
-        bzero(buff, sizeof(buff)); 
-        printf("Enter the string : "); 
-        n = 0; 
-        while ((buff[n++] = getchar()) != '\n') 
-            ; 
-        write(socket_desc, buff, sizeof(buff)); 
-        bzero(buff, sizeof(buff)); 
-        read(socket_desc, buff, sizeof(buff)); 
-        printf("From Server : %s", buff); 
-        if ((strncmp(buff, "exit", 4)) == 0) { 
-            printf("Client Exit...\n"); 
-            break; 
-        } 
-    } 
+void func(int socket_desc)
+{
+    char buff[MAX];
+    int n;
+    for (;;) {
+        bzero(buff, sizeof(buff));
+        printf("Enter the string : ");
+        n = 0;
+        while ((buff[n++] = getchar()) != '\n')
+            ;
+        write(socket_desc, buff, sizeof(buff));
+        bzero(buff, sizeof(buff));
+        read(socket_desc, buff, sizeof(buff));
+        printf("From Server : %s", buff);
+        if ((strncmp(buff, "exit", 4)) == 0) {
+            printf("Client Exit...\n");
+            break;
+        }
+    }
 }
 
 int main(int argc , char *argv[])
@@ -55,21 +55,6 @@ int main(int argc , char *argv[])
         //Send some data
 
         message = "connect";
-
-        /*if( send(socket_desc, message, strlen(message),0)<0)
-        {
-                puts("Send failed");
-                return 1;
-        }
-        puts("Data Send\n");
-
-        Receive a reply from the server
-        if( recv(socket_desc, server_reply, 2000, 0)<0)
-        {
-                puts("Recv failed.");
-        }
-        puts("Reply received\n");
-        puts(server_reply);*/
 
         // function for chat 
         func(socket_desc);
